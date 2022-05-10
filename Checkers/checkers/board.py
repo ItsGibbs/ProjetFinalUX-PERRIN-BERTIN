@@ -8,6 +8,7 @@ class Board:
         self.selected_piece = None
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
+        self.create_board()
     
     def draw_squares(self, win):
         win.fill(BLACK)
@@ -28,3 +29,11 @@ class Board:
                         self.board[row].append(0)
                 else:
                     self.board[row].append(0)
+
+    def draw(self, win):
+        self.draw_squares(win)
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece != 0:
+                    piece.draw(win)

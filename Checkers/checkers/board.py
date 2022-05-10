@@ -7,7 +7,7 @@ class Board:
         self.board = []
         self.selected_piece = None
         self.red_left = self.white_left = 12
-        self.red_kings = self.white_kings = 0
+        self.red_queens = self.white_queens = 0
         self.create_board()
     
     def draw_squares(self, win):

@@ -19,7 +19,12 @@ class Game:
         self.valid_moves = {}
 
     def winner(self):
-        return self.board.winner
+        if self.board.red_left <= 0:
+            return WHITE
+        elif self.board.white_left <= 0:
+            return RED
+
+        return None
 
     def reset(self):
         self._init()

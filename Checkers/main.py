@@ -1,6 +1,6 @@
 from operator import truediv
 import pygame
-from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT
+from checkers.constants import RED, SQUARE_SIZE, WIDTH, HEIGHT
 from checkers.game import Game
 
 
@@ -30,6 +30,8 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
+                
+                game.select(row, col)
 
         game.update()
 

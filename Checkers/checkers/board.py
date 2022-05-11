@@ -59,8 +59,6 @@ class Board:
                     self.red_left -= 1
                 else:
                     self.white_left -= 1
-
-    
    
     def get_valid_moves(self, piece):
         moves = {}

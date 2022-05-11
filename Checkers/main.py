@@ -1,6 +1,6 @@
 from operator import truediv
 import pygame
-from checkers.constants import RED, SQUARE_SIZE, WIDTH, HEIGHT
+from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT
 from checkers.game import Game
 
 
@@ -25,6 +25,7 @@ def main():
 
         if game.winner() != None:
             print(game.winner())
+            run = False
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

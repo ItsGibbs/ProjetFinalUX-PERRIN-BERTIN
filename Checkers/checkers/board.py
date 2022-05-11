@@ -62,7 +62,7 @@ class Board:
 
     def winner(self):
         if self.red_left <= 0:
-            return RED
+            return WHITE
         elif self.white_left <= 0:
             return RED
 

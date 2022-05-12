@@ -66,11 +66,18 @@ class Board:
         right = piece.col + 1
         row = piece.row
 
-        if piece.color == RED or piece.queen:
+        if piece.color == RED: #or piece.queen:
             moves.update(self._traverse_left(row -1, max(row-3, -1), -1, piece.color, left))
             moves.update(self._traverse_right(row -1, max(row-3, -1), -1, piece.color, right))
 
-        if piece.color == WHITE or piece.queen:
+        if piece.color == WHITE: #or piece.queen:
+            moves.update(self._traverse_left(row +1, min(row+3, ROWS), 1, piece.color, left))
+            moves.update(self._traverse_right(row +1, min(row+3, ROWS), 1, piece.color, right))
+
+        if piece.queen:
+            moves.update(self._traverse_left(row -1, max(row-3, -1), -1, piece.color, left))
+            moves.update(self._traverse_right(row -1, max(row-3, -1), -1, piece.color, right))
+            
             moves.update(self._traverse_left(row +1, min(row+3, ROWS), 1, piece.color, left))
             moves.update(self._traverse_right(row +1, min(row+3, ROWS), 1, piece.color, right))
 

@@ -90,7 +90,7 @@ class Board:
                 elif skipped:
                     moves[(r, left)] = last + skipped
                 else:
-                    moves[(r,left)] = last
+                    moves[(r, left)] = last
 
                 if last:
                     if step == -1:

@@ -1,6 +1,6 @@
 from operator import truediv
 import pygame, sys
-from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE
+from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE, RED
 from minimax.algorithm import minimax
 from checkers.game import Game
 from button import Button
@@ -26,6 +26,11 @@ def play():
 
         while run:
             clock.tick(FPS)
+
+            if game.winner() == RED:
+                #sql
+                pass
+
 
             if game.winner() != None:
                winscreen()
@@ -59,6 +64,34 @@ def playAI():
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)
 
+            if game.winner() == RED:
+                # database connection
+                connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
+                cursor = connection.cursor()
+                print(connection)
+                # some other statements  with the help of cursor
+    
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+
+                # Execute the query
+                cursor.execute(sql, ('WON','xx:xx:xx'))
+                # the connection is not autocommited by default. So we must commit to save our changes.
+                connection.commit()
+                connection.close()
+            elif game.winner() == WHITE:
+                # database connection
+                connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
+                cursor = connection.cursor()
+                print(connection)
+                # some other statements  with the help of cursor
+    
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+
+                # Execute the query
+                cursor.execute(sql, ('LOST','xx:xx:xx'))
+                # the connection is not autocommited by default. So we must commit to save our changes.
+                connection.commit()
+                connection.close()
 
             if game.winner() != None:
                winscreen()

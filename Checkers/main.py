@@ -27,7 +27,7 @@ def play():
         while run:
             clock.tick(FPS)
 
-            '''if game.winner() == RED:
+            if game.winner() == RED:
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()
@@ -54,7 +54,7 @@ def play():
                 cursor.execute(sql, ('WHITE WON','xx:xx:xx', '1v1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
-                connection.close()'''
+                connection.close()
 
             if game.winner() != None:
                winscreen()
@@ -88,7 +88,7 @@ def playAI():
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)
 
-            '''
+            
             if game.winner() == RED:
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -117,7 +117,7 @@ def playAI():
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
-            '''
+            
 
             if game.winner() != None:
                winscreen()
@@ -244,31 +244,5 @@ def get_row_col_from_mouse(pos):
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
-
-"""def main():
-    run = True
-    clock = pygame.time.Clock()
-    game = Game(WIN)
-
-    while run:
-        clock.tick(FPS)
-
-        if game.winner() != None:
-            print(game.winner())
-            run = False
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(pos)
-
-                game.select(row, col)
-
-        game.update()
-
-    pygame.quit()"""
 
 main_menu()

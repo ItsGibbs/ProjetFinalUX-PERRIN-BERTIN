@@ -34,10 +34,10 @@ def play():
                 print(connection)
                 # some other statements  with the help of cursor
     
-                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('WON','xx:xx:xx'))
+                cursor.execute(sql, ('RED WON','xx:xx:xx', '1V1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
@@ -48,14 +48,13 @@ def play():
                 print(connection)
                 # some other statements  with the help of cursor
     
-                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('LOST','xx:xx:xx'))
+                cursor.execute(sql, ('WHITE WON','xx:xx:xx', '1v1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
-
 
             if game.winner() != None:
                winscreen()
@@ -96,10 +95,10 @@ def playAI():
                 print(connection)
                 # some other statements  with the help of cursor
     
-                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('WON','xx:xx:xx'))
+                cursor.execute(sql, ('YOU WON','xx:xx:xx', '1vAI'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
@@ -110,10 +109,10 @@ def playAI():
                 print(connection)
                 # some other statements  with the help of cursor
     
-                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('LOST','xx:xx:xx'))
+                cursor.execute(sql, ('AI WON','xx:xx:xx', '1vAI'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()

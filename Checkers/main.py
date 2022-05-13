@@ -142,9 +142,27 @@ def history():
 
         WIN.fill("white")
 
-        HISTORY_TEXT = get_font(45).render("This is the HISTORY screen.", True, "Black")
-        HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 260))
-        WIN.blit(HISTORY_TEXT, HISTORY_RECT)
+        # database connection
+        connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
+        cursor = connection.cursor()
+        print(connection)
+
+        # some other statements  with the help of cursor  
+        sql = "SELECT `RESULT`, `TIME`, `GAMETYPE` FROM `history` WHERE `id`=%s"
+
+        # Execute the query
+        cursor.execute(sql, ('MAX(id)'))
+        result = cursor.fetchone()
+        # the connection is not autocommited by default. So we must commit to save our changes.
+        connection.commit()
+        
+        #HISTORY_TEXT = get_font(45).render("This is the HISTORY screen.", True, "Black")
+        #HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 260))
+        #WIN.blit(HISTORY_TEXT, HISTORY_RECT)
+
+        RESULT_TEXT = get_font(45).render(result, True, "Black")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 380))
+        WIN.blit(RESULT_TEXT, HISTORY_RECT)
 
         HISTORY_BACK = Button(image=None, pos=(640, 460), 
                             text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
@@ -158,6 +176,7 @@ def history():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if HISTORY_BACK.checkForInput(HISTORY_MOUSE_POS):
+                    connection.close()
                     main_menu()
 
         pygame.display.update()

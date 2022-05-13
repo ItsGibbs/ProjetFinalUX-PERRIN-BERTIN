@@ -1,5 +1,4 @@
 from copy import deepcopy
-from .checkers.game import Game
 import pygame
 
 RED = (255, 0, 0)
@@ -28,7 +27,7 @@ def minimax(position, depth, max_player, game):
             if minEval == evaluation:
                 best_move = move
 
-        return maxEval, best_move
+        return minEval, best_move
 
 def simulate_move(piece, move, board, game, skip):
     board.move(piece, move[0], move[1])

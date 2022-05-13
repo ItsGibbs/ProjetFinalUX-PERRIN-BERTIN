@@ -56,7 +56,7 @@ def playAI():
             clock.tick(FPS)
 
             if game.turn == WHITE:
-                value, new_board = minimax(game.get_board(), 3, WHITE, game)
+                value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)
 
 

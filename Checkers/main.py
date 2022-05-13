@@ -27,7 +27,7 @@ def play():
         while run:
             clock.tick(FPS)
 
-            if game.winner() == RED:
+            '''if game.winner() == RED:
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()
@@ -54,7 +54,7 @@ def play():
                 cursor.execute(sql, ('WHITE WON','xx:xx:xx', '1v1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
-                connection.close()
+                connection.close()'''
 
             if game.winner() != None:
                winscreen()
@@ -88,6 +88,7 @@ def playAI():
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)
 
+            '''
             if game.winner() == RED:
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -116,6 +117,7 @@ def playAI():
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
+            '''
 
             if game.winner() != None:
                winscreen()
@@ -214,9 +216,14 @@ def winscreen():
     while True:
         WINSCR_MOUSE_POS = pygame.mouse.get_pos()
 
-        WINSCR_TEXT = get_font(45).render("YOU WON !", True, "White")
-        WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
-        WIN.blit(WINSCR_TEXT, WINSCR_RECT)
+        if play.game.winner() == RED or playAI.game.winner() == RED:
+            WINSCR_TEXT = get_font(45).render("RED WON !", True, "White")
+            WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
+            WIN.blit(WINSCR_TEXT, WINSCR_RECT)
+        elif play.game.winner() == WHITE or playAI.game.winner() == WHITE:
+            WINSCR_TEXT = get_font(45).render("WHITE WON !", True, "White")
+            WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
+            WIN.blit(WINSCR_TEXT, WINSCR_RECT)
 
         WINSCR_BACK = Button(image=None, pos=(640, 460), 
                             text_input="MENU", font=get_font(75), base_color="Green", hovering_color="Green")

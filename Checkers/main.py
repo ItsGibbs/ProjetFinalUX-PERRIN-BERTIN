@@ -1,6 +1,7 @@
 from operator import truediv
 import pygame, sys
-from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG
+from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE
+from minimax.algorithm import minimax
 from checkers.game import Game
 from button import Button
 
@@ -53,6 +54,11 @@ def playAI():
 
         while run:
             clock.tick(FPS)
+
+            if game.turn == WHITE:
+                value, new_board = minimax(game.get_board(), 3, WHITE, game)
+                game.ai_move(new_board)
+
 
             if game.winner() != None:
                print(game.winner())

@@ -1,11 +1,11 @@
 import pygame
 
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 1280, 700
 
 ROWS, COLS = 8, 8
 
-SQUARE_SIZE = WIDTH//COLS
+SQUARE_SIZE = (HEIGHT//ROWS)
 
 #couleurs
 RED = (255, 0, 0)
@@ -17,3 +17,6 @@ CYAN = (0, 255, 255)
 
 #courone
 CROWN = pygame.transform.scale(pygame.image.load('assets/crown.png'), (44, 25))
+
+#menu bg
+BG = pygame.image.load("assets/Background.png")

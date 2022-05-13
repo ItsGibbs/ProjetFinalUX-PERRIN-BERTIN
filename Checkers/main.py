@@ -216,14 +216,11 @@ def winscreen():
     while True:
         WINSCR_MOUSE_POS = pygame.mouse.get_pos()
 
-        if play.game.winner() == RED or playAI.game.winner() == RED:
-            WINSCR_TEXT = get_font(45).render("RED WON !", True, "White")
-            WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
-            WIN.blit(WINSCR_TEXT, WINSCR_RECT)
-        elif play.game.winner() == WHITE or playAI.game.winner() == WHITE:
-            WINSCR_TEXT = get_font(45).render("WHITE WON !", True, "White")
-            WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
-            WIN.blit(WINSCR_TEXT, WINSCR_RECT)
+        
+        WINSCR_TEXT = get_font(45).render("GAME OVER !", True, "White")
+        WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
+        WIN.blit(WINSCR_TEXT, WINSCR_RECT)
+        
 
         WINSCR_BACK = Button(image=None, pos=(640, 460), 
                             text_input="MENU", font=get_font(75), base_color="Green", hovering_color="Green")

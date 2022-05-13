@@ -4,6 +4,7 @@ from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE
 from minimax.algorithm import minimax
 from checkers.game import Game
 from button import Button
+import pymysql
 
 pygame.init()
 
@@ -27,8 +28,7 @@ def play():
             clock.tick(FPS)
 
             if game.winner() != None:
-               print(game.winner())
-               run = False
+               winscreen()
         
             for event in pygame.event.get():
                if event.type == pygame.QUIT:
@@ -61,8 +61,7 @@ def playAI():
 
 
             if game.winner() != None:
-               print(game.winner())
-               run = False
+               winscreen()
         
             for event in pygame.event.get():
                if event.type == pygame.QUIT:
@@ -78,28 +77,28 @@ def playAI():
 
         pygame.quit()
 
-def options():
+def history():
     while True:
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+        HISTORY_MOUSE_POS = pygame.mouse.get_pos()
 
         WIN.fill("white")
 
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
-        WIN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+        HISTORY_TEXT = get_font(45).render("This is the HISTORY screen.", True, "Black")
+        HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 260))
+        WIN.blit(HISTORY_TEXT, HISTORY_RECT)
 
-        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
+        HISTORY_BACK = Button(image=None, pos=(640, 460), 
                             text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
 
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(WIN)
+        HISTORY_BACK.changeColor(HISTORY_MOUSE_POS)
+        HISTORY_BACK.update(WIN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                if HISTORY_BACK.checkForInput(HISTORY_MOUSE_POS):
                     main_menu()
 
         pygame.display.update()
@@ -118,7 +117,7 @@ def main_menu():
                             text_input="1vs1", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
         AI_BUTTON = Button(image=pygame.image.load("assets/1v1_Rect.png"), pos=(640, 340),
                             text_input="1vsAI", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/History_Rect.png"), pos=(640, 460), 
+        HISTORY_BUTTON = Button(image=pygame.image.load("assets/History_Rect.png"), pos=(640, 460), 
                             text_input="HISTORY", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit_Rect.png"), pos=(640, 580), 
                             text_input="QUIT", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
@@ -128,7 +127,7 @@ def main_menu():
 
         WIN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, AI_BUTTON, OPTIONS_BUTTON, USER_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, AI_BUTTON, HISTORY_BUTTON, USER_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(WIN)
         
@@ -141,8 +140,8 @@ def main_menu():
                     play()
                 if AI_BUTTON.checkForInput(MENU_MOUSE_POS):
                     playAI()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    options()
+                if HISTORY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    history()
                 if USER_BUTTON.checkForInput(MENU_MOUSE_POS):
                     account()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
@@ -153,6 +152,30 @@ def main_menu():
 
 def account():
     pass
+
+def winscreen():
+    while True:
+        WINSCR_MOUSE_POS = pygame.mouse.get_pos()
+
+        WINSCR_TEXT = get_font(45).render("YOU WON !", True, "White")
+        WINSCR_RECT = WINSCR_TEXT.get_rect(center=(640, 260))
+        WIN.blit(WINSCR_TEXT, WINSCR_RECT)
+
+        WINSCR_BACK = Button(image=None, pos=(640, 460), 
+                            text_input="MENU", font=get_font(75), base_color="Green", hovering_color="Green")
+
+        WINSCR_BACK.changeColor(WINSCR_MOUSE_POS)
+        WINSCR_BACK.update(WIN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WINSCR_BACK.checkForInput(WINSCR_MOUSE_POS):
+                    main_menu()
+
+        pygame.display.update()
 
 
 def get_row_col_from_mouse(pos):

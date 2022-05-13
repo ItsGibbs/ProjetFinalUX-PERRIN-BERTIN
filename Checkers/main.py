@@ -28,8 +28,33 @@ def play():
             clock.tick(FPS)
 
             if game.winner() == RED:
-                #sql
-                pass
+                # database connection
+                connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
+                cursor = connection.cursor()
+                print(connection)
+                # some other statements  with the help of cursor
+    
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+
+                # Execute the query
+                cursor.execute(sql, ('WON','xx:xx:xx'))
+                # the connection is not autocommited by default. So we must commit to save our changes.
+                connection.commit()
+                connection.close()
+            elif game.winner() == WHITE:
+                # database connection
+                connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
+                cursor = connection.cursor()
+                print(connection)
+                # some other statements  with the help of cursor
+    
+                sql = "INSERT INTO `history` (`RESULT`, `TIME`) VALUES (%s, %s)"
+
+                # Execute the query
+                cursor.execute(sql, ('LOST','xx:xx:xx'))
+                # the connection is not autocommited by default. So we must commit to save our changes.
+                connection.commit()
+                connection.close()
 
 
             if game.winner() != None:

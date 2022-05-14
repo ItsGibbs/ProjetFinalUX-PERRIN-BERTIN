@@ -28,24 +28,15 @@ def play():
         clock = pygame.time.Clock()
         game = Game(WIN)
 
-        now = datetime.now()
-
-        hstart = now.strftime("%H")
-        mstart = now.strftime("%M")
-        sstart = now.strftime("%S")
+        start = datetime.now()
 
         while run:
             clock.tick(FPS)
 
             if game.winner() == RED:
-                now = datetime.now()
+                end = datetime.now()
 
-                hend = now.strftime("%H")
-                mend = now.strftime("%M")
-                send = now.strftime("%S")
-                print(int(hend) - int(hstart))
-                print(int(mend) - int(mstart))
-                print(int(send) - int(sstart))
+                deltaD = start - end
 
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -56,19 +47,14 @@ def play():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('RED WON','xx:xx:xx', '1V1'))
+                cursor.execute(sql, ('RED WON',deltaD, '1V1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
             elif game.winner() == WHITE:
-                now = datetime.now()
+                end = datetime.now()
 
-                hend = now.strftime("%H")
-                mend = now.strftime("%M")
-                send = now.strftime("%S")
-                print(int(hend) - int(hstart))
-                print(int(mend) - int(mstart))
-                print(int(send) - int(sstart))
+                deltaD = end - start
 
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -79,7 +65,7 @@ def play():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('WHITE WON','xx:xx:xx', '1v1'))
+                cursor.execute(sql, ('WHITE WON',deltaD, '1v1'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()

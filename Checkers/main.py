@@ -5,6 +5,8 @@ from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE, RED
 from minimax.algorithm import minimax
 from checkers.game import Game
 from button import Button
+from datetime import datetime
+import time
 import pymysql
 
 pygame.init()
@@ -13,6 +15,7 @@ FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
+
 
 def get_font(size):
     return pygame.font.Font("assets/font.ttf", size)
@@ -25,10 +28,25 @@ def play():
         clock = pygame.time.Clock()
         game = Game(WIN)
 
+        now = datetime.now()
+
+        hstart = now.strftime("%H")
+        mstart = now.strftime("%M")
+        sstart = now.strftime("%S")
+
         while run:
             clock.tick(FPS)
 
             if game.winner() == RED:
+                now = datetime.now()
+
+                hend = now.strftime("%H")
+                mend = now.strftime("%M")
+                send = now.strftime("%S")
+                print(int(hend) - int(hstart))
+                print(int(mend) - int(mstart))
+                print(int(send) - int(sstart))
+
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()
@@ -43,6 +61,15 @@ def play():
                 connection.commit()
                 connection.close()
             elif game.winner() == WHITE:
+                now = datetime.now()
+
+                hend = now.strftime("%H")
+                mend = now.strftime("%M")
+                send = now.strftime("%S")
+                print(int(hend) - int(hstart))
+                print(int(mend) - int(mstart))
+                print(int(send) - int(sstart))
+
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()

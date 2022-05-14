@@ -1,6 +1,7 @@
 import pygame
 from .constants import RED, SQUARE_SIZE, WHITE, BLACK, CYAN
 from checkers.board import Board
+from datetime import datetime
 
 class Game:
     def __init__(self, win):

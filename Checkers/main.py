@@ -1,4 +1,5 @@
 from operator import truediv
+from unittest import result
 import pygame, sys
 from checkers.constants import SQUARE_SIZE, WIDTH, HEIGHT, BG, WHITE, RED
 from minimax.algorithm import minimax
@@ -85,7 +86,7 @@ def playAI():
             clock.tick(FPS)
 
             if game.turn == WHITE:
-                value, new_board = minimax(game.get_board(), 4, WHITE, game)
+                value, new_board = minimax(game.get_board(), 3, WHITE, game)
                 game.ai_move(new_board)
 
             
@@ -140,7 +141,7 @@ def history():
     while True:
         HISTORY_MOUSE_POS = pygame.mouse.get_pos()
 
-        WIN.fill("white")
+        WIN.blit(BG, (0, 0))
 
         # database connection
         connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -148,24 +149,26 @@ def history():
         print(connection)
 
         # some other statements  with the help of cursor  
-        sql = "SELECT `RESULT`, `TIME`, `GAMETYPE` FROM `history` WHERE `id`=%s"
+        sql = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 1"
 
         # Execute the query
-        cursor.execute(sql, ('MAX(id)'))
+        cursor.execute(sql)
         result = cursor.fetchone()
         # the connection is not autocommited by default. So we must commit to save our changes.
+        print(result)
         connection.commit()
         
-        #HISTORY_TEXT = get_font(45).render("This is the HISTORY screen.", True, "Black")
-        #HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 260))
-        #WIN.blit(HISTORY_TEXT, HISTORY_RECT)
+        HISTORY_TEXT = get_font(45).render("Your match history", True, "#b68f40")
+        HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 100))
+        WIN.blit(HISTORY_TEXT, HISTORY_RECT)
 
-        RESULT_TEXT = get_font(45).render(result, True, "Black")
+        str = ' '.join(result)
+        RESULT_TEXT = get_font(45).render(str, True, "Red")
         HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 380))
         WIN.blit(RESULT_TEXT, HISTORY_RECT)
 
-        HISTORY_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+        HISTORY_BACK = Button(image=None, pos=(640, 640), 
+                            text_input="BACK", font=get_font(45), base_color="White", hovering_color="Green")
 
         HISTORY_BACK.changeColor(HISTORY_MOUSE_POS)
         HISTORY_BACK.update(WIN)

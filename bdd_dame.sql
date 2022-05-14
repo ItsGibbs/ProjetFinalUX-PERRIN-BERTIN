@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 13 mai 2022 à 17:26
+-- Généré le : sam. 14 mai 2022 à 18:14
 -- Version du serveur : 8.0.27
 -- Version de PHP : 7.4.26
 
@@ -47,20 +47,22 @@ DROP TABLE IF EXISTS `history`;
 CREATE TABLE IF NOT EXISTS `history` (
   `id` int NOT NULL AUTO_INCREMENT,
   `RESULT` varchar(10) DEFAULT NULL,
-  `TIME` varchar(50) DEFAULT NULL,
+  `TIME` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `GAMETYPE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `history`
 --
 
 INSERT INTO `history` (`id`, `RESULT`, `TIME`, `GAMETYPE`) VALUES
-(6, 'LOST', 'xx:xx:xx', NULL),
-(7, 'RED WON', 'xx:xx:xx', '1V1'),
-(8, 'AI WON', 'xx:xx:xx', '1vAI'),
-(9, 'WHITE WON', 'xx:xx:xx', '1v1');
+(35, 'RED WON', '00:00:40', '1V1'),
+(34, 'WHITE WON', '00:00:24', '1v1'),
+(33, 'RED WON', '00:00:34', '1V1'),
+(32, 'WHITE WON', '00:00:24', '1v1'),
+(31, 'WHITE WON', '00:00:50', '1v1'),
+(30, 'RED WON', '00:00:56', '1V1');
 
 -- --------------------------------------------------------
 

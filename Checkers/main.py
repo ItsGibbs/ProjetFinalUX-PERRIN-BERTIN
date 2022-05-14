@@ -36,7 +36,7 @@ def play():
             if game.winner() == RED:
                 end = datetime.now()
 
-                deltaD = start - end
+                deltaD = end - start
 
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
@@ -95,6 +95,8 @@ def playAI():
         clock = pygame.time.Clock()
         game = Game(WIN)
 
+        start = datetime.now()
+
         while run:
             clock.tick(FPS)
 
@@ -104,6 +106,11 @@ def playAI():
 
             
             if game.winner() == RED:
+
+                end = datetime.now()
+
+                deltaD = end - start
+                
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()
@@ -113,11 +120,16 @@ def playAI():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('YOU WON','xx:xx:xx', '1vAI'))
+                cursor.execute(sql, ('YOU WON',deltaD, '1vAI'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
             elif game.winner() == WHITE:
+
+                end = datetime.now()
+
+                deltaD = end - start
+
                 # database connection
                 connection = pymysql.connect(host="localhost", port=3306, user="root", passwd="", database="bdd_dame")
                 cursor = connection.cursor()
@@ -127,7 +139,7 @@ def playAI():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('AI WON','xx:xx:xx', '1vAI'))
+                cursor.execute(sql, ('AI WON',deltaD, '1vAI'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()

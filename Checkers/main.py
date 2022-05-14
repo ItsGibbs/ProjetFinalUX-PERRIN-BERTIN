@@ -154,18 +154,70 @@ def history():
         # Execute the query
         cursor.execute(sql)
         result = cursor.fetchone()
+
+        # some other statements  with the help of cursor  
+        sql2 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 1, 1"
+        
+        # Execute the query
+        cursor.execute(sql2)
+        result2 = cursor.fetchone()
+
+        # some other statements  with the help of cursor  
+        sql3 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 2, 1"        
+        
+        # Execute the query
+        cursor.execute(sql3)
+        result3 = cursor.fetchone()
+
+        
+        # some other statements  with the help of cursor  
+        sql4 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 3, 1"
+        
+        # Execute the query
+        cursor.execute(sql4)
+        result4 = cursor.fetchone()
+
+        # some other statements  with the help of cursor  
+        sql5 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 4, 1"
+        
+        # Execute the query
+        cursor.execute(sql5)
+        result5 = cursor.fetchone()
+        
+
         # the connection is not autocommited by default. So we must commit to save our changes.
-        print(result)
         connection.commit()
         
-        HISTORY_TEXT = get_font(45).render("Your match history", True, "#b68f40")
+        HISTORY_TEXT = get_font(50).render("Your last 5 matches", True, "#b68f40")
         HISTORY_RECT = HISTORY_TEXT.get_rect(center=(640, 100))
         WIN.blit(HISTORY_TEXT, HISTORY_RECT)
 
         str = ' '.join(result)
-        RESULT_TEXT = get_font(45).render(str, True, "Red")
-        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 380))
+        RESULT_TEXT = get_font(35).render(str, True, "White")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 200))
         WIN.blit(RESULT_TEXT, HISTORY_RECT)
+
+        str2 = ' '.join(result2)
+        RESULT_TEXT = get_font(35).render(str2, True, "White")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 280))
+        WIN.blit(RESULT_TEXT, HISTORY_RECT)
+        
+        str3 = ' '.join(result3)
+        RESULT_TEXT = get_font(35).render(str3, True, "White")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 360))
+        WIN.blit(RESULT_TEXT, HISTORY_RECT)
+
+        
+        str4 = ' '.join(result4)
+        RESULT_TEXT = get_font(35).render(str4, True, "White")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 440))
+        WIN.blit(RESULT_TEXT, HISTORY_RECT)
+
+        str5 = ' '.join(result5)
+        RESULT_TEXT = get_font(35).render(str5, True, "White")
+        HISTORY_RECT = RESULT_TEXT.get_rect(center=(640, 520))
+        WIN.blit(RESULT_TEXT, HISTORY_RECT)
+        
 
         HISTORY_BACK = Button(image=None, pos=(640, 640), 
                             text_input="BACK", font=get_font(45), base_color="White", hovering_color="Green")

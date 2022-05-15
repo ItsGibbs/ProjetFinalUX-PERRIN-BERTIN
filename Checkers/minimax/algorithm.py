@@ -4,10 +4,12 @@ import pygame
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 
+# Minimax algorithm
 def minimax(position, depth, max_player, game):
     if depth == 0 or position.winner() != None:
         return position.evaluate(), position
 
+    # Gets the best move for the AI
     if max_player:
         maxEval = float('-inf')
         best_move = None
@@ -19,6 +21,7 @@ def minimax(position, depth, max_player, game):
 
         return maxEval, best_move
     else:
+        # Gets the worst move the opponent could do 
         minEval = float('inf')
         best_move = None
         for move in get_all_moves(position, RED, game):
@@ -29,6 +32,7 @@ def minimax(position, depth, max_player, game):
 
         return minEval, best_move
 
+# Simulate a move without actually sending the move to the board
 def simulate_move(piece, move, board, game, skip):
     board.move(piece, move[0], move[1])
     if skip:
@@ -37,7 +41,7 @@ def simulate_move(piece, move, board, game, skip):
     return board
 
 
-
+# Get all valid moves
 def get_all_moves(board, color, game):
     moves = []
 

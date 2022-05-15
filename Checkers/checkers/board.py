@@ -2,6 +2,7 @@ import pygame
 from .constants import BLACK, ROWS, COLS, RED, SQUARE_SIZE, WHITE
 from .piece import Piece
 
+# Board class
 class Board:
     def __init__(self):
         self.board = []
@@ -9,15 +10,18 @@ class Board:
         self.red_queens = self.white_queens = 0
         self.create_board()
     
+    # Draw the board squares
     def draw_squares(self, win):
         win.fill(BLACK)
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
                 pygame.draw.rect(win, RED, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
+    # Evaluate moves for minimax AI
     def evaluate(self):
         return self.white_left - self.red_left + (self.white_queens * 0.5 - self.red_queens * 0.5)
 
+    # Get all the pieces currently on the board
     def get_all_pieces(self, color):
         pieces = []
 
@@ -26,6 +30,7 @@ class Board:
                 if piece != 0 and piece.color == color:
                     pieces.append(piece)
         return pieces
+
 
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
@@ -38,9 +43,11 @@ class Board:
             else:
                 self.red_queens += 1
 
+    # Get a singular piece
     def get_piece(self, row, col):
         return self.board[row][col]
 
+    # Create board
     def create_board(self):
         for row in range(ROWS):
             self.board.append([])
@@ -55,6 +62,7 @@ class Board:
                 else:
                     self.board[row].append(0)
 
+    # Draw the board squares
     def draw(self, win):
         self.draw_squares(win)
         for row in range(ROWS):
@@ -63,6 +71,7 @@ class Board:
                 if piece != 0:
                     piece.draw(win)
 
+    # Remove eaten piece
     def remove(self, pieces):
         for piece in pieces:
             self.board[piece.row][piece.col] = 0
@@ -72,6 +81,7 @@ class Board:
                 else:
                     self.white_left -= 1
 
+    # Declare winner
     def winner(self):
         if self.red_left <= 0:
             return WHITE
@@ -80,13 +90,14 @@ class Board:
         
         return None 
    
+    # Get valid moves
     def get_valid_moves(self, piece):
         moves = {}
         left = piece.col - 1
         right = piece.col + 1
         row = piece.row
 
-        if piece.color == RED: #or piece.queen:
+        if piece.color == RED: #or piece.queen: 
             moves.update(self._traverse_left(row -1, max(row-3, -1), -1, piece.color, left))
             moves.update(self._traverse_right(row -1, max(row-3, -1), -1, piece.color, right))
 
@@ -103,6 +114,7 @@ class Board:
 
         return moves
 
+    # Move diagonaly to the left
     def _traverse_left(self, start, stop, step, color, left, skipped=[]):
         moves = {}
         last = []
@@ -138,6 +150,7 @@ class Board:
 
         return moves
 
+    # Move diagonaly to the right
     def _traverse_right(self, start, stop, step, color, right, skipped=[]):
         moves = {}
         last = []

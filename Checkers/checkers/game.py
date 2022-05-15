@@ -8,6 +8,7 @@ class Game:
         self._init()
         self.win = win
 
+    # Update board
     def update(self):
         self.board.draw(self.win)
         self.draw_valid_moves(self.valid_moves)
@@ -19,12 +20,15 @@ class Game:
         self.turn = RED
         self.valid_moves = {}
 
+    # Winner
     def winner(self):
         return self.board.winner()
 
+    # Reset
     def reset(self):
         self._init()
 
+    # Select a piece
     def select(self, row, col):
         if self.selected:
             result = self._move(row, col)
@@ -40,6 +44,7 @@ class Game:
 
         return False
 
+    # Move and change turn
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
@@ -53,11 +58,13 @@ class Game:
             
         return True
 
+    # Draw where the player can move
     def draw_valid_moves(self, moves):
         for move in moves:
             row, col = move
             pygame.draw.circle(self.win, CYAN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
 
+    # Change player turn
     def change_turn(self):
         self.valid_moves = {}
         if self.turn == RED:
@@ -65,9 +72,11 @@ class Game:
         else:
             self.turn = RED
 
+    # Get board
     def get_board(self):
         return self.board
 
+    # Mave the AI move
     def ai_move(self, board):
         self.board = board
         self.change_turn()

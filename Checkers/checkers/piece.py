@@ -15,13 +15,16 @@ class Piece:
         self.y = 0
         self.calc_pos()
 
+    # Calculate the position of the piece
     def calc_pos(self):
         self.x = SQUARE_SIZE * self.col + SQUARE_SIZE // 2
         self.y = SQUARE_SIZE * self.row + SQUARE_SIZE // 2
 
+    # Turn a piece into a queen
     def make_queen(self):
         self.queen = True
 
+    # Draw the pieces
     def draw(self, win):
         radius = SQUARE_SIZE//2 - self.PADDING
         pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
@@ -29,6 +32,7 @@ class Piece:
         if self.queen:
             win.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
 
+    # Move the piece
     def move(self, row, col):
         self.row = row
         self.col = col

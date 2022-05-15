@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 14 mai 2022 à 18:14
+-- Généré le : dim. 15 mai 2022 à 21:40
 -- Version du serveur : 8.0.27
 -- Version de PHP : 7.4.26
 
@@ -50,13 +50,16 @@ CREATE TABLE IF NOT EXISTS `history` (
   `TIME` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `GAMETYPE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `history`
 --
 
 INSERT INTO `history` (`id`, `RESULT`, `TIME`, `GAMETYPE`) VALUES
+(38, 'AI WON', '00:01:44', '1vAI'),
+(37, 'WHITE WON', '00:00:25', '1v1'),
+(36, 'WHITE WON', '00:00:54', '1v1'),
 (35, 'RED WON', '00:00:40', '1V1'),
 (34, 'WHITE WON', '00:00:24', '1v1'),
 (33, 'RED WON', '00:00:34', '1V1'),

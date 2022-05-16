@@ -197,7 +197,7 @@ def history():
         print(connection)
 
         # SQL query to get previous match information 
-        sql = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 1"
+        sql = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` ORDER BY id DESC LIMIT 1"
 
         # Execute the query
         cursor.execute(sql)
@@ -206,19 +206,19 @@ def history():
         result = cursor.fetchone()
 
         
-        sql2 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 1, 1"        
+        sql2 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` ORDER BY id DESC LIMIT 1, 1"        
         cursor.execute(sql2)
         result2 = cursor.fetchone()
   
-        sql3 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 2, 1"        
+        sql3 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` ORDER BY id DESC LIMIT 2, 1"        
         cursor.execute(sql3)
         result3 = cursor.fetchone()
 
-        sql4 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 3, 1"
+        sql4 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` ORDER BY id DESC LIMIT 3, 1"
         cursor.execute(sql4)
         result4 = cursor.fetchone()
 
-        sql5 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` LIMIT 4, 1"
+        sql5 = "SELECT `RESULT`, `TIME`, `GAMETYPE` AS `result` FROM `history` ORDER BY id DESC LIMIT 4, 1"
         cursor.execute(sql5)
         result5 = cursor.fetchone()
         

@@ -53,9 +53,10 @@ class Game:
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                    table = ' '.join(self.board)
                     s.connect((host, port))
-                    s.sendall(table)
+                    s.sendall("".encode('utf-8'))
+                    buff = s.recv(512)
+                    print(buff.decode())
             self.board.move(self.selected, row, col)
             skipped = self.valid_moves[(row, col)]
             if skipped: 

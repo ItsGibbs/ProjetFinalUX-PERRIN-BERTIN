@@ -6,6 +6,7 @@ from minimax.algorithm import minimax
 from checkers.game import Game
 from button import Button
 from datetime import datetime
+import socket
 import pymysql
 
 pygame.init()
@@ -14,6 +15,9 @@ FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
+
+host = '152.228.134.120'
+port = 1548
 
 # Define font
 def get_font(size):
@@ -56,6 +60,10 @@ def play():
                 connection.commit()
                 connection.close()
 
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((host, port))
+                    s.sendall("Game Ended".encode('utf-8'))
+
             # If winner is WHITE, save current time when ending the game
             elif game.winner() == WHITE:
                 end = datetime.now()
@@ -77,6 +85,10 @@ def play():
                 # Commit query, close connection
                 connection.commit()
                 connection.close()
+
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((host, port))
+                    s.sendall("Game Ended".encode('utf-8'))
 
             if game.winner() != None:
                winscreen()

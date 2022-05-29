@@ -2,6 +2,10 @@ import pygame
 from .constants import RED, SQUARE_SIZE, WHITE, BLACK, CYAN
 from checkers.board import Board
 from datetime import datetime
+import socket
+
+host = '152.228.134.120'
+port = 1548
 
 class Game:
     def __init__(self, win):
@@ -48,6 +52,10 @@ class Game:
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    table = ' '.join(self.board)
+                    s.connect((host, port))
+                    s.sendall(table)
             self.board.move(self.selected, row, col)
             skipped = self.valid_moves[(row, col)]
             if skipped: 

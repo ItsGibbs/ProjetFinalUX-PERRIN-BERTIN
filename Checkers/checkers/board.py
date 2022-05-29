@@ -62,7 +62,7 @@ class Board:
                 else:
                     self.board[row].append(0)
 
-    # Draw the board squares
+    # Draw the pieces on the board
     def draw(self, win):
         self.draw_squares(win)
         for row in range(ROWS):

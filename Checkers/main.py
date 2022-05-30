@@ -169,7 +169,7 @@ def playOnline():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('OPPONENT WON',deltaD, 'ONLINE'))
+                cursor.execute(sql, ('YOU LOST',deltaD, 'ONLINE'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()

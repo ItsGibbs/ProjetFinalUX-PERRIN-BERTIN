@@ -109,7 +109,7 @@ def play():
 
         pygame.quit()
 
-# Local 1vAI
+# Online 1v1
 def playOnline():
     while True:
         
@@ -124,7 +124,6 @@ def playOnline():
         while run:
             clock.tick(FPS)
 
-            # If it is WHITE turn, the AI will play
             if game.turn == WHITE:
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)

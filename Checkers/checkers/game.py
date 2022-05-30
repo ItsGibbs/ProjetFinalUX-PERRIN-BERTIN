@@ -3,6 +3,7 @@ from .constants import RED, SQUARE_SIZE, WHITE, BLACK, CYAN
 from checkers.board import Board
 from datetime import datetime
 import socket
+import pickle
 
 host = '152.228.134.120'
 port = 1548
@@ -53,14 +54,11 @@ class Game:
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
             #daboard = str(self.board)
-            print(self.board.board)
-            '''for elem in self.board:
-                str = ''.join(str(subelem) for subelem in elem)
-                elem = str
-            boardstr = ' '.join(boardstr(elem) for elem in self.board)
+            '''print(self.board.board)
+            daboard = pickle.dumps(self.board.board)
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     s.connect((host, port))
-                    s.sendall(daboard)
+                    s.send(daboard)
                     buff = s.recv(512)
                     print(buff.decode())'''
             self.board.move(self.selected, row, col)

@@ -54,7 +54,7 @@ def play():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query with arguments
-                cursor.execute(sql, ('RED WON',deltaD, '1V1'))
+                cursor.execute(sql, ('RED WON',deltaD, 'LOCAL'))
 
                 # Commit query and close connection
                 connection.commit()
@@ -80,7 +80,7 @@ def play():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute querry with arguments
-                cursor.execute(sql, ('WHITE WON',deltaD, '1v1'))
+                cursor.execute(sql, ('WHITE WON',deltaD, 'LOCAL'))
 
                 # Commit query, close connection
                 connection.commit()
@@ -110,7 +110,7 @@ def play():
         pygame.quit()
 
 # Local 1vAI
-def playAI():
+def playOnline():
     while True:
         
         # Run the game
@@ -126,7 +126,7 @@ def playAI():
 
             # If it is WHITE turn, the AI will play
             if game.turn == WHITE:
-                value, new_board = minimax(game.get_board(), 3, WHITE, game)
+                value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board)
 
             # If RED wins, save current time
@@ -146,7 +146,7 @@ def playAI():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute query with arguments
-                cursor.execute(sql, ('YOU WON',deltaD, '1vAI'))
+                cursor.execute(sql, ('YOU WON',deltaD, 'ONLINE'))
 
                 # Commit query, close connection
                 connection.commit()
@@ -169,7 +169,7 @@ def playAI():
                 sql = "INSERT INTO `history` (`RESULT`, `TIME`, `GAMETYPE`) VALUES (%s, %s, %s)"
 
                 # Execute the query
-                cursor.execute(sql, ('AI WON',deltaD, '1vAI'))
+                cursor.execute(sql, ('OPPONENT WON',deltaD, 'ONLINE'))
                 # the connection is not autocommited by default. So we must commit to save our changes.
                 connection.commit()
                 connection.close()
@@ -303,9 +303,9 @@ def main_menu():
 
         # Buttons
         PLAY_BUTTON = Button(image=pygame.image.load("assets/1v1_Rect.png"), pos=(640, 220), 
-                            text_input="1vs1", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
-        AI_BUTTON = Button(image=pygame.image.load("assets/1v1_Rect.png"), pos=(640, 340),
-                            text_input="1vsAI", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
+                            text_input="LOCAL", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
+        ONLINE_BUTTON = Button(image=pygame.image.load("assets/1v1_Rect.png"), pos=(640, 340),
+                            text_input="ONLINE", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
         HISTORY_BUTTON = Button(image=pygame.image.load("assets/History_Rect.png"), pos=(640, 460), 
                             text_input="HISTORY", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit_Rect.png"), pos=(640, 580), 
@@ -317,7 +317,7 @@ def main_menu():
         WIN.blit(MENU_TEXT, MENU_RECT)
 
         # Changes the color if cursor hovers the buttons
-        for button in [PLAY_BUTTON, AI_BUTTON, HISTORY_BUTTON, USER_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, ONLINE_BUTTON, HISTORY_BUTTON, USER_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(WIN)
         
@@ -329,8 +329,8 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
-                if AI_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    playAI()
+                if ONLINE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    playOnline()
                 if HISTORY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     history()
                 if USER_BUTTON.checkForInput(MENU_MOUSE_POS):

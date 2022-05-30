@@ -52,11 +52,17 @@ class Game:
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
+            #daboard = str(self.board)
+            print(self.board.board)
+            '''for elem in self.board:
+                str = ''.join(str(subelem) for subelem in elem)
+                elem = str
+            boardstr = ' '.join(boardstr(elem) for elem in self.board)
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     s.connect((host, port))
-                    s.sendall("".encode('utf-8'))
+                    s.sendall(daboard)
                     buff = s.recv(512)
-                    print(buff.decode())
+                    print(buff.decode())'''
             self.board.move(self.selected, row, col)
             skipped = self.valid_moves[(row, col)]
             if skipped: 

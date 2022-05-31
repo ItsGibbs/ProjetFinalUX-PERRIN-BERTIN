@@ -20,8 +20,6 @@ class Game:
             daturn = pickle.loads(buff)
             print(daturn)
             self.player = daturn
-            if self.player == 2:
-                self.get_new_board()
 
     def get_new_board(self):
         while 1:
@@ -42,6 +40,8 @@ class Game:
         self.board.draw(self.win)
         self.draw_valid_moves(self.valid_moves)
         pygame.display.update()
+        if (self.turn == RED and self.player == 1) or (self.turn == WHITE and self.player == 2):
+            self.get_new_board()
 
     def _init(self):
         self.selected = None
@@ -102,7 +102,6 @@ class Game:
                         if skipped: 
                             self.board.remove(skipped)'''
                         self.change_turn()
-                        self.get_new_board()
         else:
             return False
             

@@ -12,6 +12,30 @@ class Game:
     def __init__(self, win):
         self._init()
         self.win = win
+        daplayer = pickle.dumps(["yo"])
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            s.send(daplayer)
+            buff = s.recv(4096)
+            daturn = pickle.loads(buff)
+            print(daturn)
+            self.player = daturn
+            if self.player == 2:
+                self.get_new_board()
+
+    def get_new_board(self):
+        while 1:
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((host, port))
+                    buff = s.recv(4096)
+                    newboard = pickle.loads(buff)
+                    if newboard != None:
+                        self.board.board = newboard
+                        break
+            except:
+                pass
+
 
     # Update board
     def update(self):
@@ -24,6 +48,7 @@ class Game:
         self.board = Board()
         self.turn = RED
         self.valid_moves = {}
+        self.last_board = Board()
 
     # Winner
     def winner(self):
@@ -43,6 +68,10 @@ class Game:
         
         piece = self.board.get_piece(row, col)
         if piece != 0 and piece.color == self.turn:
+            '''currboard = pickle.dumps(self.board.board)
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((host, port))
+                    s.send(currboard)'''
             self.selected = piece
             self.valid_moves = self.board.get_valid_moves(piece)
             return True
@@ -52,20 +81,28 @@ class Game:
     # Move and change turn
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
-        if self.selected and piece == 0 and (row, col) in self.valid_moves:
+        if self.selected and piece == 0:
+        #and (row, col) in self.valid_moves:
             #daboard = str(self.board)
-            '''print(self.board.board)
-            daboard = pickle.dumps(self.board.board)
+            #print(self.board.board)
+            daboard = pickle.dumps([self.board.board, row, col, self.selected])
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     s.connect((host, port))
                     s.send(daboard)
-                    buff = s.recv(512)
-                    print(buff.decode())'''
-            self.board.move(self.selected, row, col)
-            skipped = self.valid_moves[(row, col)]
-            if skipped: 
-                self.board.remove(skipped)
-            self.change_turn()
+                    buff = s.recv(4096)
+                    damove = pickle.loads(buff)
+                    print(damove)
+                    if damove != False:
+                        self.board.board = damove
+
+                        '''self.board.move(self.selected, row, col)
+                        #self.last_board = self.board.board
+                        #self.board.move(damove, row, col)
+                        skipped = self.valid_moves[(row, col)]
+                        if skipped: 
+                            self.board.remove(skipped)'''
+                        self.change_turn()
+                        self.get_new_board()
         else:
             return False
             

@@ -17,7 +17,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
 
 host = '152.228.134.120'
-port = 1548
+port = 1234
 
 # Define font
 def get_font(size):

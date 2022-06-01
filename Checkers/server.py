@@ -5,7 +5,7 @@ from checkers.board import Board
 from _thread import *
 
 host = '152.228.134.120'
-port = 1548
+port = 1234
 #nb_workers = 10
 ThreadCount = 0
 
@@ -19,6 +19,7 @@ def client_handler(conn):
 		message  = pickle.loads(buff)
 		print(message)
 		if message[0] == "yo":
+			global nb_player
 			nb_player += 1
 			msg = pickle.dumps(nb_player)
 			conn.sendall(msg)

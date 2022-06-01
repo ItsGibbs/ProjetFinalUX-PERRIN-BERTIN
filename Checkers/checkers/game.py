@@ -6,7 +6,7 @@ import socket
 import pickle
 
 host = '152.228.134.120'
-port = 1548
+port = 1234
 
 class Game:
     def __init__(self, win):

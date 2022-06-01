@@ -14,7 +14,7 @@ nb_player = 0
 
 def client_handler(conn):
 	conn.send(str.encode('You are now connected'))
-	while True:		
+	while True:
 		buff = conn.recv(4096)
 		message  = pickle.loads(buff)
 		print(message)

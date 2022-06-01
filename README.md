@@ -31,4 +31,5 @@ Le jeu a été développé par Sacha PERRIN et Pierre-Louis BERTIN.
 
 Sacha était en charge du développement du logiciel, et Pierre-Louis de l'implémentation et de la connection avec la base de donnée.
 
+##### Validé par notre équipe de testeurs à poils longs
 ![](https://i.imgur.com/ur7mmzM.png)

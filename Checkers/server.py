@@ -13,7 +13,7 @@ board = Board()
 nb_player = 0
 
 def client_handler(conn):
-	conn.send(str.encode('You are now connected'))
+	
 	while True:
 		buff = conn.recv(4096)
 		message  = pickle.loads(buff)
@@ -21,7 +21,7 @@ def client_handler(conn):
 		if message[0] == "yo":
 			global nb_player
 			nb_player += 1
-			msg = pickle.dumps(nb_player)
+			msg = pickle.dumps([nb_player])
 			conn.sendall(msg)
 		else:
 			check = False

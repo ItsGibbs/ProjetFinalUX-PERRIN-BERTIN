@@ -1,5 +1,5 @@
 import pygame
-from .constants import RED, SQUARE_SIZE, WHITE, BLACK, CYAN
+from .constants import RED, SQUARE_SIZE, WHITE, CYAN
 from checkers.board import Board
 from datetime import datetime
 import socket
@@ -12,14 +12,29 @@ class Game:
     def __init__(self, win):
         self._init()
         self.win = win
-        daplayer = pickle.dumps(["yo"])
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        self.player = 0
+        self.playturn()
+        #daplayer = pickle.dumps(["yo"])
+        '''with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((host, port))
             s.send(daplayer)
             buff = s.recv(4096)
             daturn = pickle.loads(buff)
-            print(daturn)
-            self.player = daturn
+            print(str(daturn[0]))
+            self.player = daturn[0]'''
+
+    def playturn(self):
+        daplayer = pickle.dumps(["yo"])
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((host, port))
+                s.send(daplayer)
+                buff = s.recv(4096)
+                daturn = pickle.loads(buff)
+                print(str(daturn[0]))
+                self.player = daturn[0]
+        except:
+               pass
 
     def get_new_board(self):
         while 1:

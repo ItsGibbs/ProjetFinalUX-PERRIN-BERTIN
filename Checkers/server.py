@@ -10,7 +10,7 @@ port = 1548
 ThreadCount = 0
 
 board = Board()
-b_player = 0
+nb_player = 0
 
 def client_handler(conn):
 	conn.send(str.encode('You are now connected'))

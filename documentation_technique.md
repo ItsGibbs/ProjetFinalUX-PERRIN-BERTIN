@@ -69,8 +69,8 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-Restart=always
-RestartSec=1
+Restart=on-failure
+RestartSec=10
 User=sacha
 ExecStart=/bin/sh -c "/usr/bin/python3 /home/sacha/checkers/server.py"
 StandardInput=tty-force

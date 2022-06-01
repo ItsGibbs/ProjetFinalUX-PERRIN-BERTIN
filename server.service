@@ -1,0 +1,15 @@
+[Unit]
+Description=server service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=sacha
+ExecStart=/bin/sh -c "/usr/bin/python3 /home/sacha/checkers/server.py"
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target

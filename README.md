@@ -4,7 +4,7 @@
 
 ##### Pierre-Louis BERTIN – Sacha PERRIN 
 
-## Jeu de dame en 1v1 local et 1v1
+## Jeu de dame en 1v1 local et 1v1 online
 
 Le jeu est développé en ``Python``, avec la lib ``pygame``et utilise un algorithme ``minimax`` pour son intelligence artificielle.
 

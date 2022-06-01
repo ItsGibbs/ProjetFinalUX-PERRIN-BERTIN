@@ -4,6 +4,8 @@
 
 ##### Pierre-Louis BERTIN – Sacha PERRIN 
 
+### Pour le processus d'installation de la solution, veuillez vous référer à "documentation_technique.md"
+
 ## Jeu de dame en 1v1 local et 1v1 online
 
 Le jeu est développé en ``Python``, avec la lib ``pygame``et utilise un algorithme ``minimax`` pour son intelligence artificielle.

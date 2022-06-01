@@ -8,7 +8,7 @@
 
 ## Jeu de dame en 1v1 local et 1v1 online
 
-Le jeu est développé en ``Python``, avec la lib ``pygame``et utilise un algorithme ``minimax`` pour son intelligence artificielle.
+Le jeu est développé en ``Python``, avec la lib ``pygame``.
 
 Le jeu permet de jouer en 1v1 local et 1v1 online
 
@@ -31,4 +31,5 @@ Le jeu a été développé par Sacha PERRIN et Pierre-Louis BERTIN.
 
 Sacha était en charge du développement du logiciel, et Pierre-Louis de l'implémentation et de la connection avec la base de donnée.
 
-
+##### Validé par notre équipe de testeurs à poils longs
+![](https://i.imgur.com/ur7mmzM.png)

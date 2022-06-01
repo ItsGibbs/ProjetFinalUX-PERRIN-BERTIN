@@ -38,7 +38,7 @@ def play():
         while run:
             clock.tick(FPS)
 
-            # If winner is RED, save current time when ending the game
+            # If winner is RED, save current time when ending the game 
             if game.winner() == RED:
                 end = datetime.now()
 

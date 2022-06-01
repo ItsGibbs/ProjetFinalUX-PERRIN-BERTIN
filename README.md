@@ -8,7 +8,7 @@
 
 ## Jeu de dame en 1v1 local et 1v1 online
 
-Le jeu est développé en ``Python``, avec la lib ``pygame``et utilise un algorithme ``minimax`` pour son intelligence artificielle.
+Le jeu est développé en ``Python``, avec la lib ``pygame``.
 
 Le jeu permet de jouer en 1v1 local et 1v1 online
 
